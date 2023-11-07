@@ -80,7 +80,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                         ],
                       ),
-
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Card(
+                        elevation: 0,
+                        color: Theme.of(context).colorScheme.tertiaryContainer,
+                        child: Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Text(""),
+                        ),
+                      ),
                     ],
                   )
                 ],
