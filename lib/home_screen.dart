@@ -26,31 +26,28 @@ class _HomeScreenState extends State<HomeScreen> {
         Scaffold(
             extendBodyBehindAppBar: false,
             backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              backgroundColor: Theme.of(context).colorScheme.background,
-              elevation: 1,
-              forceMaterialTransparency: false,
-              title: Text("Olá!", style: TextStyle(fontSize: 32),),
-              bottom: PreferredSize(preferredSize: Size.fromHeight(16), child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("FULANO"),
-              )),
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(24),
-                    bottomRight: Radius.circular(24)
-                  )
-              ),
-              actions: [
-                IconButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>SettingsScreen()));
-                }, icon: Icon(Icons.settings))
-              ],
-            ),
+
             body: SingleChildScrollView(
-              padding: EdgeInsets.all(24),
+              padding: EdgeInsets.fromLTRB(24, 40, 24, 24),
               child: Column(
                 children: [
+                  Container(
+                    child: Row(
+                      children: [
+                        Text("Olá,",style: TextStyle(fontSize: 28,fontWeight: FontWeight.bold),),
+                        Spacer(),
+                        IconButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) =>SettingsScreen()));
+                        }, icon: Icon(Icons.settings)),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                        child: Text("Fulano!", style: TextStyle(fontSize: 32,fontWeight: FontWeight.bold),)),
+                  ),
+                  const SizedBox(height: 24),
                   Row(
                     children: [
                       Text('Curiosidade:',
@@ -90,13 +87,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ' / '
                                   '2000'
                                   'ml',
-                              style: TextStyle(fontSize: 24),
+                              style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),
                             ),
                           )
                         ],
                       ),
                       SizedBox(
                         height: 40,
+                      ),
+                      Row(
+                        children: [
+                          Text('Histórico:',
+                            style: TextStyle(
+                                fontSize: 20
+                            ),),
+                        ],
                       ),
                       Card(
                           elevation: 0,
