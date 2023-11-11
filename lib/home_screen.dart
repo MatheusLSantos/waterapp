@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'settings_screen.dart';
 import 'package:lottie/lottie.dart';
 import 'water_intake_history.dart';
+import 'components/water_selection.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -12,6 +13,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void _showWaterSelection(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return WaterSeleciton(
+          onButtonPressed: (int buttonIndex) {},
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -73,10 +84,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          FilledButton(onPressed: () {},
-                            child: Icon(Icons.water_drop_rounded,size: 40,),
+                          FilledButton(onPressed: () {_showWaterSelection(context);},
+                            child: Container(
+                              height: 70,
+                              width: 70,
+                              child: Lottie.asset('assets/waterdrop_ani.json',
+                                  fit: BoxFit.cover),
+                            ),
                             style: FilledButton.styleFrom(
-                              padding: EdgeInsets.all(16),
+                              padding: EdgeInsets.all(0),
                               shape: CircleBorder(),
                             ),
                           ),
@@ -128,3 +144,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
