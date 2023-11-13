@@ -3,7 +3,7 @@ import 'settings_screen.dart';
 import 'package:lottie/lottie.dart';
 import 'water_intake_history.dart';
 import 'components/water_selection.dart';
-
+import 'components/random_tip_generator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,8 +23,24 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
+
+  String _tipText = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _updateTipText();
+  }
+
+  void _updateTipText() {
+    setState(() {
+      _tipText = RandomTipGenerator.getRandomTip();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    _updateTipText(); // Atualiza o texto cada vez que a tela é construída
     return Stack(
       children: [
         Container(
@@ -72,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Theme.of(context).colorScheme.tertiaryContainer,
                     child: Padding(
                       padding: const EdgeInsets.all(24.0),
-                      child: Text('A maior reserva de água doce do mundo está localizada no Brasil, com 6.950 quilômetros cúbicos do líquido.'),
+                      child: Text(_tipText),
                     ),
                   ),
                   Column(
