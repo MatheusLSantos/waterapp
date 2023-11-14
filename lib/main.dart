@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
-import 'theme/color_schemes.g.dart';
 import 'home_screen.dart';
 import 'splash_screen.dart';
+import 'package:provider/provider.dart';
+import 'components/switch_theme_toggle.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,10 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: '',
-      theme: ThemeData(
-       useMaterial3: true,
-        colorScheme: lightColorScheme
-      ),
+      theme: Provider.of<ThemeProvider>(context).currentTheme,
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => SplashScreen(),
