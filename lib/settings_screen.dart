@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:waterproject3/name_screen.dart';
 import 'package:lottie/lottie.dart';
+import 'components/switch_theme_toggle.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -41,12 +42,7 @@ class SettingsScreen extends StatelessWidget {
                 elevation: 0,
                 child: ListTile(
                   title: Text('Tema Escuro'),
-                  trailing: Switch(
-                    value: false, // Valor do switch (pode ser alterado conforme necessário)
-                    onChanged: (value) {
-                      // Lógica para alterar o tema escuro
-                    },
-                  ),
+                  trailing: SwitchThemeToggle(),
                 ),
               ),
               Card(
