@@ -8,42 +8,70 @@ class WaterSeleciton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Escolha uma opção'),
+      title: Text('Escolha a quantidade de copos de água'),
       actions: <Widget>[
-        ElevatedButton(
-          onPressed: () {
-            onButtonPressed(1);
-            Navigator.of(context).pop();
-          },
-          child: Text('Botão 1'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                onButtonPressed(125);
+                Navigator.of(context).pop();
+              },
+              child: Container(child: Column(
+                children: [
+                  Text('1/2 - 125 ml'),
+                ],
+              )),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                onButtonPressed(250);
+                Navigator.of(context).pop();
+              },
+              child: Text('1 - 250 ml'),
+            ),
+          ],
         ),
-        ElevatedButton(
-          onPressed: () {
-            onButtonPressed(2);
-            Navigator.of(context).pop();
-          },
-          child: Text('Botão 2'),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                onButtonPressed(375);
+                Navigator.of(context).pop();
+              },
+              child: Text('1,5 - 375 ml'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                onButtonPressed(500);
+                Navigator.of(context).pop();
+              },
+              child: Text('2 - 500 ml'),
+            ),
+          ],
         ),
-        ElevatedButton(
-          onPressed: () {
-            onButtonPressed(3);
-            Navigator.of(context).pop();
-          },
-          child: Text('Botão 3'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            onButtonPressed(4);
-            Navigator.of(context).pop();
-          },
-          child: Text('Botão 4'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            onButtonPressed(5);
-            Navigator.of(context).pop();
-          },
-          child: Text('Botão 5'),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                onButtonPressed(750);
+                Navigator.of(context).pop();
+              },
+              child: Text('2,5 - 750 ml'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                onButtonPressed(1000);
+                Navigator.of(context).pop();
+              },
+              child: Text('4 - 1 l'),
+            ),
+          ],
         ),
       ],
     );
