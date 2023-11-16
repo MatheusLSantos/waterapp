@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'home_screen.dart';
 import 'package:lottie/lottie.dart';
+import 'configs/app_settings.dart';
 
 class WeightScreen extends StatelessWidget {
+
+  TextEditingController _weightController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -39,6 +44,7 @@ class WeightScreen extends StatelessWidget {
                     TextField(
                       maxLength: 4,
                       keyboardType: TextInputType.number,
+                      controller: _weightController,
                       decoration: InputDecoration(
                         labelText: 'Peso (kg)',
                         border: UnderlineInputBorder(),
@@ -48,6 +54,8 @@ class WeightScreen extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         // Lógica para salvar o peso do usuário
+                        double value = double.tryParse(_weightController.text) ?? 0.0;
+                        context.read<AppSettings>().setWeight(value);
                         Navigator.push(context, MaterialPageRoute(builder: (context) =>HomeScreen()));
                       },
                       child: Text('Salvar'),
