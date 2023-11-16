@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:waterproject3/configs/app_settings.dart';
 import 'settings_screen.dart';
 import 'package:lottie/lottie.dart';
 import 'water_intake_history.dart';
@@ -41,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     _updateTipText(); // Atualiza o texto cada vez que a tela é construída
+    Future<String> _name = context.read<AppSettings>().getName();
     return Stack(
       children: [
         Container(
@@ -72,7 +75,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     child: Align(
                       alignment: Alignment.centerLeft,
-                        child: Text("Aplicativo!", style: TextStyle(fontSize: 32,fontWeight: FontWeight.bold),)),
+                        child: FutureBuilder<String>(
+                          future: _name,
+                          builder: (BuildContext context, AsyncSnapshot<String> snapshot){
+                            if (snapshot.hasData) {
+                              return Text('${snapshot.data!}!', style: TextStyle(fontSize: 32,fontWeight: FontWeight.bold),);
+                            } else {
+                              return CircularProgressIndicator();
+                            }
+                          }
+                        )
+                    ),
                   ),
                   const SizedBox(height: 24),
                   Row(
