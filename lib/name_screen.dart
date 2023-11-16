@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:waterproject3/configs/app_settings.dart';
 import 'package:waterproject3/weight_screen.dart';
 import 'package:lottie/lottie.dart';
 
 class NameScreen extends StatelessWidget {
+
+  TextEditingController _nameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -18,6 +23,7 @@ class NameScreen extends StatelessWidget {
           extendBodyBehindAppBar: true,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
             title: Text(''),
           ),
@@ -39,6 +45,7 @@ class NameScreen extends StatelessWidget {
                     TextField(
                       maxLength: 15,
                       keyboardType: TextInputType.text,
+                      controller: _nameController,
                       decoration: InputDecoration(
                         labelText: 'Nome ou apelido',
                         border: UnderlineInputBorder(),
@@ -48,6 +55,7 @@ class NameScreen extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         // Lógica para salvar o peso do usuário
+                        context.read<AppSettings>().setName(_nameController.text);
                         Navigator.push(context, MaterialPageRoute(builder: (context) =>WeightScreen()));
                       },
                       child: Text('Salvar'),
