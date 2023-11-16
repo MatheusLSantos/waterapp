@@ -3,13 +3,14 @@ import 'home_screen.dart';
 import 'splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'components/switch_theme_toggle.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'configs/app_settings.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => AppSettings()),
       ],
       child: MyApp(),
     ),
