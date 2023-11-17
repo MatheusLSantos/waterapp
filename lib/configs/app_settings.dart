@@ -43,4 +43,13 @@ class AppSettings extends ChangeNotifier {
   void setDarkMode(bool isDarkMode) async {
     await preferences.setBool('isDarkMode', isDarkMode);
   }
+
+  Future<double> getIntakeGoal() async {
+    await _startPreferences();
+    return preferences.getDouble('intakeGoal') ?? 2000;
+  }
+
+  void setIntakeGoal(double intakeGoal) async {
+    await preferences.setDouble('intakeGoal', intakeGoal);
+  }
 }
