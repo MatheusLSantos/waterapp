@@ -5,8 +5,27 @@ import 'package:waterproject3/weight_screen.dart';
 import 'package:lottie/lottie.dart';
 
 class NameScreen extends StatelessWidget {
+  final TextEditingController _nameController = TextEditingController();
 
-  TextEditingController _nameController = TextEditingController();
+  String? _validateInput(String value) {
+    if (value.isEmpty) {
+      return 'Campo obrigatório';
+    }
+
+    if (value.length > 15) {
+      return 'Máximo de 15 caracteres permitidos';
+    }
+
+    if (value.contains('  ')) {
+      return 'Não pode conter espaços duplos';
+    }
+
+    if (value.contains(new RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return 'Não pode conter símbolos';
+    }
+
+    return null; // A entrada é válida
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +68,26 @@ class NameScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: 'Nome ou apelido',
                         border: UnderlineInputBorder(),
+                        errorText: _validateInput(_nameController.text),
                       ),
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        // Lógica para salvar o peso do usuário
-                        context.read<AppSettings>().setName(_nameController.text);
-                        Navigator.push(context, MaterialPageRoute(builder: (context) =>WeightScreen()));
+                        String? validationError = _validateInput(_nameController.text);
+                        if (validationError == null) {
+                          // A entrada é válida, salvar o nome do usuário
+                          context.read<AppSettings>().setName(_nameController.text);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => WeightScreen()));
+                        } else {
+                          // A entrada é inválida, exibir uma mensagem de erro ou tomar outra ação necessária
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(validationError),
+                              backgroundColor: Theme.of(context).colorScheme.error,
+                            ),
+                          );
+                        }
                       },
                       child: Text('Salvar'),
                     ),
