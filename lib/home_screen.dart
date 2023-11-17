@@ -44,10 +44,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     _updateTipText(); // Atualiza o texto cada vez que a tela é construída
     Future<String> _name = context.read<AppSettings>().getName();
+    Future<double> _intakeGoal = context.read<AppSettings>().getIntakeGoal();
     return Stack(
       children: [
         Container(
           color: Theme.of(context).colorScheme.background,
+        ),
+        Lottie.asset(
+          'assets/backgroundwave_ani.json',
+          fit: BoxFit.cover,
         ),
         Lottie.asset(
           'assets/backgroundfish_ani.json',
@@ -125,15 +130,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               shape: CircleBorder(),
                             ),
                           ),
-                          Container(
-                            child: Text(
-                              '1500'
-                                  'ml'
-                                  ' / '
-                                  '2000'
-                                  'ml',
-                              style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),
-                            ),
+                          FutureBuilder<double>(
+                            future: _intakeGoal,
+                            builder: (BuildContext context, AsyncSnapshot<double> snapshot){
+                              if (snapshot.hasData) {
+                                return Text("1500ml/${snapshot.data!.round()}ml", style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),);
+                              } else {
+                                return CircularProgressIndicator();
+                              }
+                            }
                           )
                         ],
                       ),
