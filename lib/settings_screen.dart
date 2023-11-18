@@ -12,6 +12,10 @@ class SettingsScreen extends StatelessWidget {
           color: Theme.of(context).colorScheme.background,
         ),
         Lottie.asset(
+          'assets/backgroundwave_ani.json',
+          fit: BoxFit.cover,
+        ),
+        Lottie.asset(
           'assets/backgroundfish_ani.json',
         ),
         Scaffold(
