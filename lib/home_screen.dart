@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:waterproject3/configs/app_settings.dart';
+import 'package:waterproject3/models/diary_model.dart';
+import 'package:waterproject3/models/water_intake_model.dart';
+import 'package:waterproject3/repositories/diary_repository.dart';
+import 'package:waterproject3/repositories/water_intake_repository.dart';
 import 'settings_screen.dart';
 import 'package:lottie/lottie.dart';
 import 'water_intake_history.dart';
 import 'components/water_selection.dart';
 import 'components/random_tip_generator.dart';
+import 'package:collection/collection.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,7 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (BuildContext context) {
         return WaterSeleciton(
-          onButtonPressed: (int buttonIndex) {},
+          onButtonPressed: (int buttonIndex) async {
+            Diary diary = await _getDiary();
+
+            WaterIntake waterIntake = WaterIntake(waterIntakeVolume: buttonIndex.toDouble(), createdAt: DateTime.now(), diary: diary.id);
+            await context.read<WaterIntakeRepository>().insertWaterIntake(waterIntake);
+            setState(() {});
+          },
         );
       },
     );
@@ -38,6 +49,34 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _tipText = RandomTipGenerator.getRandomTip();
     });
+  }
+
+  Future<double> _getTotalIntake() async {
+    Diary diary = await _getDiary();
+
+    double totalIntake = 0.0;
+
+    List<WaterIntake> waterIntakes = await context.read<DiaryRepository>().waterIntakes(diary.id);
+    waterIntakes.forEach((waterIntake) {
+      totalIntake += waterIntake.waterIntakeVolume;
+    });
+
+    return totalIntake;
+  }
+
+  Future<Diary> _getDiary() async {
+    List<Diary> diarys = await context.read<DiaryRepository>().diarys();
+    Diary? diary = await diarys.firstWhereOrNull((element) => element.day == DateTime.now().day && element.month == DateTime.now().month && element.year == DateTime.now().year);
+
+    if (diary == null) {
+      Diary new_diary = Diary(year: DateTime.now().year, month: DateTime.now().month, day: DateTime.now().day);
+      int diary_id = await context.read<DiaryRepository>().insertDiary(new_diary);
+      Diary created_diary = await context.read<DiaryRepository>().getDiary(diary_id);
+      return created_diary;
+    }
+    else {
+      return diary;
+    }
   }
 
   @override
@@ -118,7 +157,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          FilledButton(onPressed: () {_showWaterSelection(context);},
+                          FilledButton(onPressed: () {
+                            _showWaterSelection(context);
+                          },
                             child: Container(
                               height: 70,
                               width: 70,
@@ -131,10 +172,21 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           FutureBuilder<double>(
+                              future: _getTotalIntake(),
+                              builder: (BuildContext context, AsyncSnapshot<double> snapshot){
+                                if (snapshot.hasData) {
+                                  return Text("${snapshot.data!.round()}ml", style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),);
+                                } else {
+                                  return CircularProgressIndicator();
+                                }
+                              }
+                          ),
+                          const Text('/', style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold)),
+                          FutureBuilder<double>(
                             future: _intakeGoal,
                             builder: (BuildContext context, AsyncSnapshot<double> snapshot){
                               if (snapshot.hasData) {
-                                return Text("1500ml/${snapshot.data!.round()}ml", style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),);
+                                return Text("${snapshot.data!.round()}ml", style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),);
                               } else {
                                 return CircularProgressIndicator();
                               }
