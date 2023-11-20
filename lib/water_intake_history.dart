@@ -7,16 +7,20 @@ import 'package:waterproject3/models/diary_model.dart';
 import 'package:waterproject3/repositories/diary_repository.dart';
 import 'package:waterproject3/repositories/water_intake_repository.dart';
 
+
 class WaterIntakeHistory extends StatefulWidget {
-  const WaterIntakeHistory({Key? key});
+  final Function onUpdateHomeScreen;
+  const WaterIntakeHistory({Key? key, required this.onUpdateHomeScreen}) : super(key: key);
 
   @override
   State<WaterIntakeHistory> createState() => _WaterIntakeHistoryState();
 }
 
+void onUpdateHomeScreen() {}
+
 class _WaterIntakeHistoryState extends State<WaterIntakeHistory> {
   
-  Future<void> _showDeleteConfirmationDialog(BuildContext context, int waterIntakeId) async {
+  Future<void> _showDeleteConfirmationDialog(BuildContext context, int waterIntakeId, Function() onDelete) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -34,6 +38,8 @@ class _WaterIntakeHistoryState extends State<WaterIntakeHistory> {
                 // Lógica para excluir do banco de dados aqui
                 context.read<WaterIntakeRepository>().deleteWaterIntake(waterIntakeId);
                 setState(() {});
+                onDelete(); // Chama a função de callback após a exclusão
+                widget.onUpdateHomeScreen(); // Chama a função de callback para atualizar a Home Screen
                 // Fechar o pop-up
                 Navigator.of(context).pop();
               },
@@ -100,7 +106,16 @@ class _WaterIntakeHistoryState extends State<WaterIntakeHistory> {
                               IconButton(
                                 icon: Icon(Icons.delete),
                                 onPressed: () {
-                                  _showDeleteConfirmationDialog(context, snapshot.data![index].id);
+                                  _showDeleteConfirmationDialog(
+                                    context,
+                                    snapshot.data![index].id,
+                                        () {
+                                      // Função de callback que será chamada após a exclusão
+                                      setState(() {
+                                        onUpdateHomeScreen();
+                                      });
+                                    },
+                                  );
                                 },
                               ),
                             ],
@@ -119,4 +134,5 @@ class _WaterIntakeHistoryState extends State<WaterIntakeHistory> {
       ],
     );
   }
+
 }

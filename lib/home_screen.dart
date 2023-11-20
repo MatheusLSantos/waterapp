@@ -19,6 +19,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  void _updateHomeScreen() {
+    setState(() {
+      // Atualizar o estado da Home Screen
+    });
+  }
+
   void _showWaterSelection(BuildContext context) {
     showDialog(
       context: context,
@@ -29,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             WaterIntake waterIntake = WaterIntake(waterIntakeVolume: buttonIndex.toDouble(), createdAt: DateTime.now(), diary: diary.id);
             await context.read<WaterIntakeRepository>().insertWaterIntake(waterIntake);
-            setState(() {});
+            _updateHomeScreen(); // Chama a função de atualização da Home Screen
           },
         );
       },
@@ -187,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       FilledButton(onPressed: (){
                         // Navegar para a tela de alteração de peso (WeightScreen)
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => WaterIntakeHistory()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => WaterIntakeHistory(onUpdateHomeScreen: _updateHomeScreen)));
                       },
                         child: Text("Visualizar histórico completo"),
                       )
