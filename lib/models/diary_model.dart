@@ -1,14 +1,17 @@
 class Diary {
 
-  final int _year;
-  final int _month;
-  final int _day;
+  final int id;
+  final int year;
+  final int month;
+  final int day;
 
-  Diary() : _year = DateTime.now().year, _month = DateTime.now().month, _day = DateTime.now().day;
+  Diary({this.id = 0,required this.year,required this.month,required this.day});
 
-  int get day => _day;
-
-  int get month => _month;
-
-  int get year => _year;
+  Map<String, dynamic> toMap() {
+    return {
+      'year': year,
+      'month': month,
+      'day': day
+    };
+  }
 }

@@ -1,9 +1,17 @@
 class WaterIntake {
 
+  final int id;
   final double waterIntakeVolume;
-  final DateTime _createdAt;
+  final DateTime createdAt;
+  final int diary;
 
-  WaterIntake({required this.waterIntakeVolume}) : _createdAt = DateTime.now();
+  WaterIntake({required this.waterIntakeVolume, required this.createdAt, this.id = 0, required this.diary});
 
-  DateTime get createdAt => _createdAt;
+  Map<String, dynamic> toMap() {
+    return {
+      'waterIntakeVolume': waterIntakeVolume,
+      'createdAt': createdAt.toString(),
+      'diary': diary
+    };
+  }
 }
