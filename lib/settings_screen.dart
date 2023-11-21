@@ -58,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
                   trailing: Icon(Icons.arrow_forward_rounded),
                   onTap: () {
                     // Navegar para a tela de alteração de peso (WeightScreen)
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => NameScreen()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NameScreen()));
                   },
                 ),
               ),
