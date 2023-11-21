@@ -4,12 +4,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppSettings extends ChangeNotifier {
   late SharedPreferences preferences;
 
-  Future<void> _startPreferences() async {
+  AppSettings() {
+    startPreferences(); // inicializar preferences no construtor
+  }
+
+  Future<void> startPreferences() async {
     preferences = await SharedPreferences.getInstance();
   }
 
   Future<String> getName() async {
-    await _startPreferences();
+    await startPreferences();
     return preferences.getString('name') ?? "Convidado";
   }
 
@@ -18,7 +22,7 @@ class AppSettings extends ChangeNotifier {
   }
 
   Future<double> getWeight() async {
-    await _startPreferences();
+    await startPreferences();
     return preferences.getDouble('weight') ?? 0.0;
   }
 
@@ -27,7 +31,7 @@ class AppSettings extends ChangeNotifier {
   }
 
   Future<bool> getFirstTime() async {
-    await _startPreferences();
+    await startPreferences();
     return preferences.getBool('isFirstTime') ?? true;
   }
 
@@ -36,7 +40,7 @@ class AppSettings extends ChangeNotifier {
   }
 
   Future<bool> getDarkMode() async {
-    await _startPreferences();
+    await startPreferences();
     return preferences.getBool('isDarkMode') ?? false;
   }
 
@@ -45,7 +49,7 @@ class AppSettings extends ChangeNotifier {
   }
 
   Future<double> getIntakeGoal() async {
-    await _startPreferences();
+    await startPreferences();
     return preferences.getDouble('intakeGoal') ?? 2000;
   }
 
