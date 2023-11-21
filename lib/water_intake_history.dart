@@ -7,7 +7,6 @@ import 'package:waterproject3/models/diary_model.dart';
 import 'package:waterproject3/repositories/diary_repository.dart';
 import 'package:waterproject3/repositories/water_intake_repository.dart';
 
-
 class WaterIntakeHistory extends StatefulWidget {
   final Function onUpdateHomeScreen;
   const WaterIntakeHistory({Key? key, required this.onUpdateHomeScreen}) : super(key: key);
@@ -34,12 +33,12 @@ class _WaterIntakeHistoryState extends State<WaterIntakeHistory> {
               child: Text('Cancelar'),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 // Lógica para excluir do banco de dados aqui
-                context.read<WaterIntakeRepository>().deleteWaterIntake(waterIntakeId);
+                await context.read<WaterIntakeRepository>().deleteWaterIntake(waterIntakeId);
                 setState(() {});
                 onDelete(); // Chama a função de callback após a exclusão
-                widget.onUpdateHomeScreen(); // Chama a função de callback para atualizar a Home Screen
+                widget.onUpdateHomeScreen();
                 // Fechar o pop-up
                 Navigator.of(context).pop();
               },
@@ -134,5 +133,6 @@ class _WaterIntakeHistoryState extends State<WaterIntakeHistory> {
       ],
     );
   }
+
 
 }

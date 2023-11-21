@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class WaterSeleciton extends StatelessWidget {
+class WaterSelection extends StatelessWidget {
   final Function(int) onButtonPressed;
 
-  WaterSeleciton({required this.onButtonPressed});
+  WaterSelection({required this.onButtonPressed});
 
   @override
   Widget build(BuildContext context) {
