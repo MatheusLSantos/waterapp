@@ -19,7 +19,12 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin,AutomaticKeepAliveClientMixin {
+
+  @override
+  bool get wantKeepAlive => true;
+
+
 
   late AnimationController _animationController;
 
@@ -80,6 +85,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     _updateTipText(); // Atualiza o texto cada vez que a tela é construída
     Future<String> _name = context.read<AppSettings>().getName();
     Future<double> _intakeGoal = context.read<AppSettings>().getIntakeGoal();
