@@ -10,6 +10,7 @@ import 'package:lottie/lottie.dart';
 import 'water_intake_history.dart';
 import 'components/water_selection.dart';
 import 'components/random_tip_generator.dart';
+import 'package:flutter/animation.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,25 +19,30 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+
+  late AnimationController _animationController;
 
   void _updateHomeScreen() {
+    setAnimationControllerValues(); // Chama a função de atualização do AnimationController
     setState(() {
       // Atualizar o estado da Home Screen
     });
+
   }
 
   void _showWaterSelection(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return WaterSeleciton(
+        return WaterSelection(
           onButtonPressed: (int buttonIndex) async {
             Diary diary = await WaterIntakeByDiary.getDiary(context);
 
             WaterIntake waterIntake = WaterIntake(waterIntakeVolume: buttonIndex.toDouble(), createdAt: DateTime.now(), diary: diary.id);
             await context.read<WaterIntakeRepository>().insertWaterIntake(waterIntake);
             _updateHomeScreen(); // Chama a função de atualização da Home Screen
+            setAnimationControllerValues(); // Atualiza o AnimationController
           },
         );
       },
@@ -49,6 +55,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _updateTipText();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+    _animationController.addListener(() {
+      setState(() {}); // Força uma reconstrução do widget ao alterar a animação
+    });
+    setAnimationControllerValues();
   }
 
   void _updateTipText() {
@@ -57,11 +71,19 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  Future<void> setAnimationControllerValues() async {
+    double intakeGoal = await context.read<AppSettings>().getIntakeGoal();
+    double totalIntake = await WaterIntakeByDiary.getTotalIntake(context);
+    _animationController.value = totalIntake / intakeGoal;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     _updateTipText(); // Atualiza o texto cada vez que a tela é construída
     Future<String> _name = context.read<AppSettings>().getName();
     Future<double> _intakeGoal = context.read<AppSettings>().getIntakeGoal();
+
     return Stack(
       children: [
         Container(
@@ -129,8 +151,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   Column(
                     children: [
                       Container(
-                        child: Lottie.asset('assets/waterbar3_ani.json',
-                            fit: BoxFit.cover),
+                        child: Lottie.asset(
+                          'assets/waterbar3_ani.json',
+                            controller: _animationController,
+                            fit: BoxFit.cover,),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
