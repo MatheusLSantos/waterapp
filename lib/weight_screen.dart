@@ -87,7 +87,7 @@ class WeightScreen extends StatelessWidget {
                           double value = double.parse(_weightController.text);
                           context.read<AppSettings>().setWeight(value);
                           _setIntakeGoal(context, value);
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                         } else {
                           // A entrada é inválida, exibir uma mensagem de erro ou tomar outra ação necessária
                           ScaffoldMessenger.of(context).showSnackBar(
