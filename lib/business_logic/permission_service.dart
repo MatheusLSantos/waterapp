@@ -27,25 +27,6 @@ class PermissionService {
         );
       }
     }
-
-    if (status.isGranted) {
-      // Permissão concedida, você pode enviar notificações
-      // ...
-      showDialog(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: Text('Permissão Concedida'),
-          content: Text('Agora você tem permissão para receber notificações.'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }
-
     return status;
   }
 }
