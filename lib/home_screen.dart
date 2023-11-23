@@ -208,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       ),
 
                       ElevatedButton(onPressed: (){
-                        notificationServices.sendNotification();
+                        notificationServices.intakeNotification();
                       }, child: Text("notificação")),
 
                       FilledButton(onPressed: (){

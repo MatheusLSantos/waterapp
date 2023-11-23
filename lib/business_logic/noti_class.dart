@@ -13,7 +13,7 @@ class NotificationServices{
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  void sendNotification()async{
+  void intakeNotification()async{
     AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
         "channelId",
         "channelName",
@@ -23,9 +23,9 @@ class NotificationServices{
     NotificationDetails notificationDetails = NotificationDetails(
       android: androidNotificationDetails
     );
-
-    await flutterLocalNotificationsPlugin.show(0, 'this is the title', 'hello there', notificationDetails);
-
+    await flutterLocalNotificationsPlugin.show(0, 'Opa! Parece que alguém bebeu água', 'Continue assim!', notificationDetails);
   }
+
+
 
 }

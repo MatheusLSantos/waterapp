@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:waterproject3/business_logic/noti_class.dart';
 
 class WaterSelection extends StatelessWidget {
   final Function(int) onButtonPressed;
+
+  NotificationServices notificationServices = NotificationServices();
 
   WaterSelection({required this.onButtonPressed});
 
@@ -16,6 +19,7 @@ class WaterSelection extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 onButtonPressed(125);
+                notificationServices.intakeNotification();
                 Navigator.of(context).pop();
               },
               child: Container(child: Column(
@@ -27,6 +31,7 @@ class WaterSelection extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 onButtonPressed(250);
+                notificationServices.intakeNotification();
                 Navigator.of(context).pop();
               },
               child: Text('1 - 250 ml'),
@@ -40,6 +45,7 @@ class WaterSelection extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 onButtonPressed(375);
+                notificationServices.intakeNotification();
                 Navigator.of(context).pop();
               },
               child: Text('1,5 - 375 ml'),
@@ -47,6 +53,7 @@ class WaterSelection extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 onButtonPressed(500);
+                notificationServices.intakeNotification();
                 Navigator.of(context).pop();
               },
               child: Text('2 - 500 ml'),
@@ -60,6 +67,7 @@ class WaterSelection extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 onButtonPressed(750);
+                notificationServices.intakeNotification();
                 Navigator.of(context).pop();
               },
               child: Text('2,5 - 750 ml'),
@@ -67,6 +75,7 @@ class WaterSelection extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 onButtonPressed(1000);
+                notificationServices.intakeNotification();
                 Navigator.of(context).pop();
               },
               child: Text('4 - 1 l'),
