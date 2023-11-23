@@ -32,19 +32,6 @@ class SettingsScreen extends StatelessWidget {
                 color: Theme.of(context).colorScheme.tertiaryContainer,
                 elevation: 0,
                 child: ListTile(
-                  title: Text('Notificações'),
-                  trailing: Switch(
-                    value: true, // Valor do switch (pode ser alterado conforme necessário)
-                    onChanged: (value) {
-                      // Lógica para alterar o estado de notificações
-                    },
-                  ),
-                ),
-              ),
-              Card(
-                color: Theme.of(context).colorScheme.tertiaryContainer,
-                elevation: 0,
-                child: ListTile(
                   title: Text('Tema Escuro'),
                   trailing: SwitchThemeToggle(),
                 ),

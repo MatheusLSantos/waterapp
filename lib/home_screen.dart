@@ -12,6 +12,7 @@ import 'water_intake_history.dart';
 import 'components/water_selection.dart';
 import 'components/random_tip_generator.dart';
 import 'package:flutter/animation.dart';
+import 'business_logic/permission_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -168,6 +169,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         children: [
                           FilledButton(onPressed: () {
                             _showWaterSelection(context);
+                            PermissionService.requestNotificationPermission(context);
                           },
                             child: Container(
                               height: 70,
