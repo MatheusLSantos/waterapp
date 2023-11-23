@@ -6,7 +6,6 @@ import 'package:waterproject3/name_screen.dart';
 import 'configs/app_settings.dart';
 import 'home_screen.dart';
 
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();

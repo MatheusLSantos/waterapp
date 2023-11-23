@@ -7,10 +7,14 @@ import 'configs/app_settings.dart';
 import 'repositories/diary_repository.dart';
 import 'repositories/water_intake_repository.dart';
 import 'business_logic/noti_class.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   NotificationServices().initialNotification();
+  tz.initializeTimeZones();
+  final _local = tz.local;
   runApp(
     MultiProvider(
       providers: [

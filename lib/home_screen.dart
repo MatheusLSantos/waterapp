@@ -206,16 +206,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       SizedBox(
                         height: 40,
                       ),
-
-                      ElevatedButton(onPressed: (){
-                        notificationServices.intakeNotification();
-                      }, child: Text("notificação")),
-
                       FilledButton(onPressed: (){
                         // Navegar para a tela de alteração de peso (WeightScreen)
                         Navigator.push(context, MaterialPageRoute(builder: (context) => WaterIntakeHistory(onUpdateHomeScreen: _updateHomeScreen)));
                       },
-                        child: Text("Visualizar histórico completo"),
+                        child: Text("Visualizar histórico do dia"),
                       )
                     ],
                   )
