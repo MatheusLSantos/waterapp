@@ -205,23 +205,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       SizedBox(
                         height: 40,
                       ),
-                      Row(
-                        children: [
-                          Text('Histórico:',
-                            style: TextStyle(
-                                fontSize: 20
-                            ),),
-                        ],
-                      ),
-                      Card(
-                          elevation: 0,
-                          color: Theme.of(context).colorScheme.tertiaryContainer,
-                          child: Padding(
-                            padding: EdgeInsets.all(24),
-                            child: Container(
-                                child: Text("")),
-                          )
-                      ),
                       FilledButton(onPressed: (){
                         // Navegar para a tela de alteração de peso (WeightScreen)
                         Navigator.push(context, MaterialPageRoute(builder: (context) => WaterIntakeHistory(onUpdateHomeScreen: _updateHomeScreen)));
