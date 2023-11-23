@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:waterproject3/business_logic/noti_class.dart';
 import 'package:waterproject3/business_logic/waterIntakeByDiary.dart';
 import 'package:waterproject3/configs/app_settings.dart';
 import 'package:waterproject3/models/diary_model.dart';
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   bool get wantKeepAlive => true;
 
-
+  NotificationServices notificationServices = NotificationServices();
 
   late AnimationController _animationController;
 
@@ -205,6 +206,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       SizedBox(
                         height: 40,
                       ),
+
+                      ElevatedButton(onPressed: (){
+                        notificationServices.sendNotification();
+                      }, child: Text("notificação")),
+
                       FilledButton(onPressed: (){
                         // Navegar para a tela de alteração de peso (WeightScreen)
                         Navigator.push(context, MaterialPageRoute(builder: (context) => WaterIntakeHistory(onUpdateHomeScreen: _updateHomeScreen)));
