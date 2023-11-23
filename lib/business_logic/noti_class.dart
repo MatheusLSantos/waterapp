@@ -92,7 +92,7 @@ class NotificationServices{
       "Aproveite enquanto isso for apenas um aviso.",
     ];
 
-    int id = 0;
+    int id = 100;
 
     // Create a random number generator
     final rng = Random();
@@ -164,7 +164,7 @@ class NotificationServices{
       "Aproveite enquanto isso for apenas um aviso.",
     ];
 
-    int id = 0;
+    int id = 1000;
 
     // Create a random number generator
     final rng = Random();
@@ -190,6 +190,7 @@ class NotificationServices{
         ),
       ),
       androidAllowWhileIdle: true,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
       UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
@@ -246,7 +247,7 @@ class NotificationServices{
       "Aproveite enquanto isso for apenas um aviso.",
     ];
 
-    int id = 0;
+    int id = 10000;
 
     // Create a random number generator
     final rng = Random();
@@ -272,6 +273,7 @@ class NotificationServices{
         ),
       ),
       androidAllowWhileIdle: true,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
       UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
