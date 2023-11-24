@@ -26,7 +26,7 @@ class NotificationServices{
     NotificationDetails notificationDetails = NotificationDetails(
       android: androidNotificationDetails
     );
-    await flutterLocalNotificationsPlugin.show(0, 'Opa! Parece que alguém bebeu água', 'Continue assim!', notificationDetails);
+    await flutterLocalNotificationsPlugin.show(100000, 'Opa! Parece que alguém bebeu água', 'Continue assim!', notificationDetails);
   }
 
   void scheduleNotification()async{
